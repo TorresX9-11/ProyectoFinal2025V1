@@ -1,13 +1,30 @@
 <?php
 if ($_SERVER['REQUEST_METHOD']=='POST') {
-  $img = $_FILES['imagen']['name'];
-  move_uploaded_file($_FILES['imagen']['tmp_name'],"uploads/$img");
+  // Manejar la imagen principal si se subió
+  $imagen_principal = null;
+  if (isset($_FILES['imagen_principal']) && $_FILES['imagen_principal']['error'] === UPLOAD_ERR_OK) {
+    $extension = strtolower(pathinfo($_FILES['imagen_principal']['name'], PATHINFO_EXTENSION));
+    $imagen_principal = uniqid() . '.' . $extension;
+    move_uploaded_file($_FILES['imagen_principal']['tmp_name'], "../uploads/$imagen_principal");
+  }
+
+  // Procesar tecnologías como array JSON
+  $tecnologias = !empty($_POST['tecnologias']) ? explode(',', $_POST['tecnologias']) : [];
+  
   $data = [
-    'titulo'=>$_POST['titulo'],
-    'descripcion'=>$_POST['descripcion'],
-    'url_github'=>$_POST['url_github'],
-    'url_produccion'=>$_POST['url_produccion'],
-    'imagen'=>$img
+    'titulo' => $_POST['titulo'],
+    'descripcion' => $_POST['descripcion'],
+    'descripcion_corta' => $_POST['descripcion_corta'],
+    'tecnologias' => json_encode(array_map('trim', $tecnologias)),
+    'url_demo' => $_POST['url_demo'],
+    'url_repositorio' => $_POST['url_repositorio'],
+    'fecha_inicio' => $_POST['fecha_inicio'],
+    'fecha_fin' => $_POST['fecha_fin'],
+    'estado' => $_POST['estado'],
+    'categoria_id' => $_POST['categoria_id'],
+    'destacado' => isset($_POST['destacado']) ? 1 : 0,
+    'visible' => isset($_POST['visible']) ? 1 : 0,
+    'imagen_principal' => $imagen_principal
   ];
   $ch=curl_init('../api/proyectos.php');
   curl_setopt_array($ch,[

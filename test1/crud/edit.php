@@ -4,16 +4,40 @@ $json=file_get_contents("../api/proyectos.php/$id");
 $p=json_decode($json,true);
 
 if ($_SERVER['REQUEST_METHOD']=='POST') {
+  // Procesar tecnologías como array JSON
+  $tecnologias = !empty($_POST['tecnologias']) ? explode(',', $_POST['tecnologias']) : [];
+  
   $data = [
-    'titulo'=>$_POST['titulo'],
-    'descripcion'=>$_POST['descripcion'],
-    'url_github'=>$_POST['url_github'],
-    'url_produccion'=>$_POST['url_produccion']
+    'titulo' => $_POST['titulo'],
+    'descripcion' => $_POST['descripcion'],
+    'descripcion_corta' => $_POST['descripcion_corta'],
+    'tecnologias' => json_encode(array_map('trim', $tecnologias)),
+    'url_demo' => $_POST['url_demo'],
+    'url_repositorio' => $_POST['url_repositorio'],
+    'fecha_inicio' => $_POST['fecha_inicio'],
+    'fecha_fin' => $_POST['fecha_fin'],
+    'estado' => $_POST['estado'],
+    'categoria_id' => $_POST['categoria_id'],
+    'destacado' => isset($_POST['destacado']) ? 1 : 0,
+    'visible' => isset($_POST['visible']) ? 1 : 0
   ];
-  if (!empty($_FILES['imagen']['name'])) {
-    $img=$_FILES['imagen']['name'];
-    move_uploaded_file($_FILES['imagen']['tmp_name'],"uploads/$img");
-    $data['imagen']=$img;
+
+  // Manejar la imagen principal si se subió una nueva
+  if (!empty($_FILES['imagen_principal']['name'])) {
+    $extension = strtolower(pathinfo($_FILES['imagen_principal']['name'], PATHINFO_EXTENSION));
+    $imagen_principal = uniqid() . '.' . $extension;
+    
+    // Eliminar imagen anterior si existe
+    if ($p['imagen_principal']) {
+      $imagen_path = "../uploads/" . $p['imagen_principal'];
+      if (file_exists($imagen_path)) {
+        unlink($imagen_path);
+      }
+    }
+    
+    // Subir nueva imagen
+    move_uploaded_file($_FILES['imagen_principal']['tmp_name'], "../uploads/$imagen_principal");
+    $data['imagen_principal'] = $imagen_principal;
   }
   $ch=curl_init("../api/proyectos.php/$id");
   curl_setopt_array($ch,[
