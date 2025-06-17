@@ -1,5 +1,9 @@
 <?php
 include 'config.php';
+require_once 'auth_helper.php';
+
+// Verificar autenticación para operaciones de escritura
+$user_id = requireAuth($_SERVER['REQUEST_METHOD']);
 
 // Configuración de cabeceras CORS y JSON
 header("Access-Control-Allow-Origin: *");
@@ -62,7 +66,7 @@ switch ($method) {
         $tecnologias = json_encode($d['tecnologias'] ?? []);
         $destacado = $d['destacado'] ?? false;
         $visible = $d['visible'] ?? true;
-        $usuario_id = 1; // Por ahora usando ID fijo, luego se tomará de la sesión
+        $usuario_id = $user_id; // Usando el ID del usuario autenticado
         
         $stmt->bind_param("ssssssssssiibb",
             $d['titulo'],
@@ -81,16 +85,55 @@ switch ($method) {
             $visible);
         $stmt->execute();
         echo json_encode(["success"=>true,"id"=>$stmt->insert_id]);
-        break;
-
-    case 'PATCH':
+        break;    case 'PATCH':
         $d = getInput();
-        $sets = [];
-        foreach ($d as $k=>$v){
-            $sets[] = "$k='{$conn->real_escape_string($v)}'";
+        $updateFields = [];
+        $types = "";
+        $params = [];
+        $allowedFields = [
+            'titulo', 'descripcion', 'descripcion_corta', 'tecnologias', 
+            'url_demo', 'url_repositorio', 'imagen_principal', 'fecha_inicio',
+            'fecha_fin', 'estado', 'categoria_id', 'destacado', 'visible'
+        ];
+        
+        foreach ($d as $key => $value) {
+            if (in_array($key, $allowedFields)) {
+                $updateFields[] = "$key = ?";
+                if (in_array($key, ['categoria_id'])) {
+                    $types .= "i";
+                } elseif (in_array($key, ['destacado', 'visible'])) {
+                    $types .= "b";
+                } else {
+                    $types .= "s";
+                }
+                if ($key === 'tecnologias' && is_array($value)) {
+                    $params[] = json_encode($value);
+                } else {
+                    $params[] = $value;
+                }
+            }
         }
-        $conn->query("UPDATE proyectos SET ".implode(",",$sets)." WHERE id=$id");
-        echo json_encode(["success"=>true]);
+        
+        if (!empty($updateFields)) {
+            $sql = "UPDATE proyectos SET " . implode(", ", $updateFields) . " WHERE id = ? AND usuario_id = ?";
+            $types .= "ii";
+            $params[] = $id;
+            $params[] = $user_id;
+            
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param($types, ...$params);
+            $stmt->execute();
+            
+            if ($stmt->affected_rows > 0) {
+                echo json_encode(["success" => true]);
+            } else {
+                http_response_code(404);
+                echo json_encode(["error" => "No se encontró el proyecto o no tienes permisos para editarlo"]);
+            }
+        } else {
+            http_response_code(400);
+            echo json_encode(["error" => "No se proporcionaron campos válidos para actualizar"]);
+        }
         break;
 
     case 'DELETE':

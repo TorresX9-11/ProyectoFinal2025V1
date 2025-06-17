@@ -1,4 +1,5 @@
 <?php
+require_once 'auth.php';
 if ($_SERVER['REQUEST_METHOD']=='POST') {
   // Manejar la imagen principal si se subió
   $imagen_principal = null;

@@ -1,5 +1,9 @@
 <?php
 include 'config.php';
+require_once 'auth_helper.php';
+
+// Verificar autenticación para operaciones de escritura
+$user_id = requireAuth($_SERVER['REQUEST_METHOD']);
 
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
@@ -39,9 +43,18 @@ switch ($method) {
             echo json_encode(["error" => "El nombre de la categoría es requerido"]);
             break;
         }
-        
+          // Verificar si ya existe una categoría con el mismo nombre
+        $checkStmt = $conn->prepare("SELECT id FROM categorias WHERE nombre = ?");
+        $checkStmt->bind_param("s", $input['nombre']);
+        $checkStmt->execute();
+        if ($checkStmt->get_result()->num_rows > 0) {
+            http_response_code(409);
+            echo json_encode(["error" => "Ya existe una categoría con este nombre"]);
+            break;
+        }
+
         $stmt = $conn->prepare("INSERT INTO categorias (nombre, descripcion) VALUES (?, ?)");
-        $stmt->bind_param("ss", $input['nombre'], $input['descripcion']);
+        $stmt->bind_param("ss", $input['nombre'], $input['descripcion'] ?? '');
         
         if ($stmt->execute()) {
             echo json_encode([

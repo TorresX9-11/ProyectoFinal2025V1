@@ -1,4 +1,5 @@
 <?php
+require_once 'auth.php';
 $id=intval($_GET['id']);
 $json=file_get_contents("../api/proyectos.php/$id");
 $p=json_decode($json,true);

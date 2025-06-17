@@ -1,13 +1,22 @@
 <?php
+require_once 'auth.php';
 $json = file_get_contents('../api/proyectos.php');
 $proyectos = json_decode($json, true);
 ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>…</head>
-<body>
-  <h2>Proyectos</h2>
-  <a href="add.php">+ Agregar</a>  <?php foreach ($proyectos as $p): ?>
+<body>  <nav class="admin-nav">
+    <div class="nav-brand">Panel de Administración</div>
+    <div class="nav-links">
+      <a href="../index.html" target="_blank">Ver Sitio</a>
+      <a href="add.php" class="btn btn-primary">+ Nuevo Proyecto</a>
+      <a href="logout.php" class="btn btn-danger">Cerrar Sesión</a>
+    </div>
+  </nav>
+  
+  <div class="container">
+    <h2>Gestión de Proyectos</h2><?php foreach ($proyectos as $p): ?>
     <div class="proyecto-card <?= $p['destacado'] ? 'destacado' : '' ?>">
       <h3><?=htmlspecialchars($p['titulo'])?></h3>
       <div class="metadata">
