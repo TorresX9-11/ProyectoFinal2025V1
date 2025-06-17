@@ -3,13 +3,13 @@ session_start();
 
 // Si ya está autenticado, redirigir al panel de administración
 if (isset($_SESSION['user_id'])) {
-    header('Location: crud/index.php');
+    header('Location: /test1/public/admin');
     exit;
 }
 
 // Procesar el formulario de login
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    require_once 'api/config.php';
+    require_once __DIR__ . '/../api/config.php';
     
     $username = $_POST['username'];
     $password = $_POST['password'];
@@ -23,8 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Iniciar sesión
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
-            
-            header('Location: crud/index.php');
+              header('Location: /test1/public/admin');
             exit;
         }
     }

@@ -8,12 +8,12 @@ if (!isset($_SESSION['csrf_token'])) {
 
 // Si ya está autenticado, redirigir al panel de administración
 if (isset($_SESSION['user_id'])) {
-    header('Location: crud/index.php');
+    header('Location: /test1/public/admin');
     exit;
 }
 
-require_once 'api/config.php';
-require_once 'classes/Auth.php';
+require_once __DIR__ . '/../api/config.php';
+require_once __DIR__ . '/../Auth.php';
 
 $error = '';
 $success = '';
