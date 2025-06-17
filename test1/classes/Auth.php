@@ -6,14 +6,13 @@ class Auth {
         $this->conn = $conn;
     }
     
-    public function login($username, $password) {
-        $stmt = $this->conn->prepare("SELECT id, username, password FROM usuarios WHERE username = ?");
+    public function login($username, $password) {        $stmt = $this->conn->prepare("SELECT id, username, password_hash FROM usuarios WHERE username = ?");
         $stmt->bind_param("s", $username);
         $stmt->execute();
         $result = $stmt->get_result();
         
         if ($user = $result->fetch_assoc()) {
-            if (password_verify($password, $user['password'])) {
+            if (password_verify($password, $user['password_hash'])) {
                 // Iniciar sesión
                 session_start();
                 $_SESSION['user_id'] = $user['id'];
@@ -34,8 +33,7 @@ class Auth {
         }
         
         // Crear nuevo usuario
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-        $stmt = $this->conn->prepare("INSERT INTO usuarios (username, password, email) VALUES (?, ?, ?)");
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);        $stmt = $this->conn->prepare("INSERT INTO usuarios (username, password_hash, email) VALUES (?, ?, ?)");
         $stmt->bind_param("sss", $username, $hashed_password, $email);
         return $stmt->execute();
     }
