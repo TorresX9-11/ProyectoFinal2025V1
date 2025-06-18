@@ -9,12 +9,12 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 // Configuración de la base de datos
 $host = "localhost";
 $db = "emanuel_torres_db2";
-$user = "root";         // Para desarrollo local
-$pass = "";            // Para desarrollo local
+// $user = "root";         // Para desarrollo local
+// $pass = "";            // Para desarrollo local
 
 // Para producción (comentar las credenciales locales y descomentar estas)
-// $user = "emanuel_torres";
-// $pass = "emanuel_torres2025";
+$user = "emanuel_torres";
+$pass = "emanuel_torres2025";
 
 try {
     $conn = new PDO(
