@@ -15,7 +15,7 @@ try {
         SELECT p.*, c.nombre as categoria_nombre 
         FROM proyectos p 
         LEFT JOIN categorias c ON p.categoria_id = c.id 
-        ORDER BY p.fecha_creacion DESC
+        ORDER BY p.created_at DESC
     ");
     $proyectos = $stmt->fetchAll();
 } catch (PDOException $e) {
