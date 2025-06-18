@@ -1,10 +1,12 @@
 <?php
-// Configuración de cabeceras para API REST
-header("Access-Control-Allow-Origin: *");
-header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
-header("Access-Control-Max-Age: 3600");
-header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+// Configuración de cabeceras para API REST solo si es acceso directo
+if (basename(__FILE__) === basename($_SERVER['SCRIPT_FILENAME'])) {
+    header("Access-Control-Allow-Origin: *");
+    header("Content-Type: application/json; charset=UTF-8");
+    header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+    header("Access-Control-Max-Age: 3600");
+    header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+}
 
 // Configuración de la base de datos
 $host = "localhost";
@@ -15,6 +17,11 @@ $db = "emanuel_torres_db2";
 // Para producción (comentar las credenciales locales y descomentar estas)
 $user = "emanuel_torres";
 $pass = "emanuel_torres2025";
+
+// Habilitar logs de errores
+ini_set('display_errors', 0);
+ini_set('log_errors', 1);
+ini_set('error_log', __DIR__ . '/../php-error.log');
 
 try {
     $conn = new PDO(
@@ -28,8 +35,10 @@ try {
         ]
     );
 } catch(PDOException $e) {
+    error_log('DB ERROR: ' . $e->getMessage());
     http_response_code(500);
-    die(json_encode(['error' => 'Error de conexión a la base de datos']));
+    echo json_encode(['error' => 'Error de conexión a la base de datos']);
+    exit;
 }
 
 // Función para verificar autenticación
