@@ -1,9 +1,10 @@
-# Denegar acceso a todos los archivos excepto los que están en public/
 Options -Indexes
-<FilesMatch "^\.">
-    Order allow,deny
-    Deny from all
-</FilesMatch>
+
+# Habilitar el motor de reescritura
+RewriteEngine On
+
+# Base del proyecto
+RewriteBase /ProyectoFinal2025V1/test1/
 
 # Proteger archivos sensibles
 <FilesMatch "^(database_structure\.sql|\.env|config\.php)$">
@@ -11,15 +12,23 @@ Options -Indexes
     Deny from all
 </FilesMatch>
 
-# Redirigir todas las solicitudes a public/index.php excepto para archivos/directorios existentes
-RewriteEngine On
-RewriteCond %{REQUEST_URI} !^/public/
+# No aplicar reglas a archivos y directorios existentes
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ /public/$1 [L]
 
-# Configuración PHP
-php_value upload_max_filesize 10M
-php_value post_max_size 10M
-php_value max_execution_time 300
-php_value max_input_time 300
+# Redirigir todas las solicitudes al index.php en public
+RewriteRule ^(.*)$ public/index.php [QSA,L]
+
+# Permitir acceso a la carpeta public
+<Directory "/public">
+    Allow from all
+</Directory>
+
+# Configuración PHP básica
+<IfModule mod_php.c>
+    php_value upload_max_filesize 10M
+    php_value post_max_size 10M
+    php_value max_execution_time 300
+    php_value max_input_time 300
+    php_flag display_errors off
+</IfModule>

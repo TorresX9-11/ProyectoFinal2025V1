@@ -7,7 +7,7 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
-require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../../api/config.php';
 require_once __DIR__ . '/../Auth.php';
 
 $auth = new Auth($conn);
