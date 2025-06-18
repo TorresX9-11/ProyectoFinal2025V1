@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio Emanuel Torres</title>
+    <link rel="stylesheet" href="assets/css/styleindex.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-brand">Emanuel Torres</div>
+            <div class="nav-links">
+                <a href="login.php">Iniciar Sesión</a>
+                <a href="register.php">Registrarse</a>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section id="proyectos">
+            <h2>Proyectos</h2>
+            <div id="proyectos-list"></div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 Emanuel Torres</p>
+    </footer>
+    <script>
+    // Cargar proyectos públicos desde la API
+    fetch('api/proyectos.php')
+        .then(res => res.json())
+        .then(data => {
+            const cont = document.getElementById('proyectos-list');
+            if(Array.isArray(data)) {
+                cont.innerHTML = data.map(p => `
+                    <div class="proyecto-card">
+                        <h3>${p.titulo}</h3>
+                        <p>${p.descripcion_corta || p.descripcion}</p>
+                        ${p.imagen_principal ? `<img src="uploads/${p.imagen_principal}" style="max-width:200px;">` : ''}
+                    </div>
+                `).join('');
+            } else {
+                cont.innerHTML = '<p>No hay proyectos disponibles.</p>';
+            }
+        });
+    </script>
+</body>
+</html>

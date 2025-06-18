@@ -1,0 +1,75 @@
+<?php
+session_start();
+require_once __DIR__ . '/api/config.php';
+
+$error = '';
+$success = '';
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $username = trim(filter_var($_POST['username'] ?? '', FILTER_SANITIZE_STRING));
+    $email = trim(filter_var($_POST['email'] ?? '', FILTER_SANITIZE_EMAIL));
+    $password = $_POST['password'] ?? '';
+    $confirm = $_POST['confirm_password'] ?? '';
+
+    // Validaciones
+    if (!$username || !$email || !$password || !$confirm) {
+        $error = 'Todos los campos son obligatorios';
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $error = 'El correo electrónico no es válido';
+    } elseif (strlen($username) < 3 || strlen($username) > 50) {
+        $error = 'El usuario debe tener entre 3 y 50 caracteres';
+    } elseif (strlen($email) > 100) {
+        $error = 'El correo electrónico no puede exceder los 100 caracteres';
+    } elseif (strlen($password) < 8) {
+        $error = 'La contraseña debe tener al menos 8 caracteres';
+    } elseif ($password !== $confirm) {
+        $error = 'Las contraseñas no coinciden';
+    } else {
+        // Validar unicidad
+        $stmt = $conn->prepare('SELECT id FROM usuarios WHERE username = ? OR email = ?');
+        $stmt->execute([$username, $email]);
+        if ($stmt->fetch()) {
+            $error = 'El usuario o email ya existe';
+        } else {
+            $hash = password_hash($password, PASSWORD_DEFAULT);
+            $stmt = $conn->prepare('INSERT INTO usuarios (username, password_hash, email) VALUES (?, ?, ?)');
+            $stmt->execute([$username, $hash, $email]);
+            $success = '¡Registro exitoso! Ahora puedes iniciar sesión.';
+        }
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <link rel="stylesheet" href="assets/css/styleauth.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Registro</h1>
+        <?php if ($error): ?><div class="error-message"><?= htmlspecialchars($error) ?></div><?php endif; ?>
+        <?php if ($success): ?><div class="success-message"><?= htmlspecialchars($success) ?></div><?php endif; ?>
+        <form method="POST">
+            <div class="form-group">
+                <label for="username">Usuario</label>
+                <input type="text" name="username" id="username" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Correo electrónico</label>
+                <input type="email" name="email" id="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Contraseña</label>
+                <input type="password" name="password" id="password" required>
+            </div>
+            <div class="form-group">
+                <label for="confirm_password">Confirmar contraseña</label>
+                <input type="password" name="confirm_password" id="confirm_password" required>
+            </div>
+            <button type="submit">Registrarse</button>
+        </form>
+    </div>
+</body>
+</html>
