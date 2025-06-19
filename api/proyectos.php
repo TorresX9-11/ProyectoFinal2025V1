@@ -26,6 +26,10 @@ function getInput() {
 // GET: público
 if ($method === 'GET') {
     try {
+        // Filtros por categoría y usuario
+        $categoria_id = isset($_GET['categoria_id']) ? intval($_GET['categoria_id']) : null;
+        $usuario_id = isset($_GET['usuario_id']) ? intval($_GET['usuario_id']) : null;
+
         if ($id) {
             $stmt = $conn->prepare("SELECT * FROM proyectos WHERE id = ? AND visible = 1");
             $stmt->execute([$id]);
@@ -37,7 +41,19 @@ if ($method === 'GET') {
                 echo json_encode(["error" => "Proyecto no encontrado"]);
             }
         } else {
-            $stmt = $conn->query("SELECT p.id, p.titulo, p.descripcion, p.descripcion_corta, p.imagen_principal, p.visible, p.destacado, p.tecnologias, p.url_demo, p.url_repositorio, p.fecha_inicio, p.fecha_fin, p.estado, p.categoria_id, u.username as autor FROM proyectos p JOIN usuarios u ON p.usuario_id = u.id WHERE p.visible = 1 ORDER BY p.fecha_inicio DESC");
+            $query = "SELECT p.id, p.titulo, p.descripcion, p.descripcion_corta, p.imagen_principal, p.visible, p.destacado, p.tecnologias, p.url_demo, p.url_repositorio, p.fecha_inicio, p.fecha_fin, p.estado, p.categoria_id, u.username as autor FROM proyectos p JOIN usuarios u ON p.usuario_id = u.id WHERE p.visible = 1";
+            $params = [];
+            if ($categoria_id) {
+                $query .= " AND p.categoria_id = ?";
+                $params[] = $categoria_id;
+            }
+            if ($usuario_id) {
+                $query .= " AND p.usuario_id = ?";
+                $params[] = $usuario_id;
+            }
+            $query .= " ORDER BY p.destacado DESC, p.fecha_inicio DESC";
+            $stmt = $conn->prepare($query);
+            $stmt->execute($params);
             $proyectos = $stmt->fetchAll();
             echo json_encode($proyectos);
         }

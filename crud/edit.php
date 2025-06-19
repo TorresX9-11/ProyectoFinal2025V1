@@ -2,6 +2,14 @@
 session_start();
 require_once '../api/config.php';
 
+// Bloquear acceso a admin
+$stmtUser = $conn->prepare("SELECT is_admin FROM usuarios WHERE id = ?");
+$stmtUser->execute([$_SESSION['user_id']]);
+$user = $stmtUser->fetch();
+if ($user && $user['is_admin'] == 1) {
+    die('Acceso denegado: el usuario administrador no puede editar proyectos.');
+}
+
 if (!isset($_SESSION['user_id'])) {
     header('Location: ../login.php');
     exit;

@@ -9,17 +9,38 @@ if (!isset($_SESSION['user_id'])) {
 
 require_once '../api/config.php';
 
-// Obtener solo los proyectos del usuario logueado
+// Obtener datos del usuario logueado
 try {
-    $stmt = $conn->prepare("
-        SELECT p.*, c.nombre as categoria_nombre 
-        FROM proyectos p 
-        LEFT JOIN categorias c ON p.categoria_id = c.id 
-        WHERE p.usuario_id = ?
-        ORDER BY p.created_at DESC
-    ");
-    $stmt->execute([$_SESSION['user_id']]);
-    $proyectos = $stmt->fetchAll();
+    $stmtUser = $conn->prepare("SELECT is_admin FROM usuarios WHERE id = ?");
+    $stmtUser->execute([$_SESSION['user_id']]);
+    $user = $stmtUser->fetch();
+    $isAdmin = $user && $user['is_admin'] == 1;
+} catch (PDOException $e) {
+    die("Error al obtener datos del usuario");
+}
+
+// Obtener proyectos: todos si admin, solo propios si no
+try {
+    if ($isAdmin) {
+        $stmt = $conn->query("
+            SELECT p.*, c.nombre as categoria_nombre, u.username as autor
+            FROM proyectos p
+            LEFT JOIN categorias c ON p.categoria_id = c.id
+            LEFT JOIN usuarios u ON p.usuario_id = u.id
+            ORDER BY p.created_at DESC
+        ");
+        $proyectos = $stmt->fetchAll();
+    } else {
+        $stmt = $conn->prepare("
+            SELECT p.*, c.nombre as categoria_nombre
+            FROM proyectos p
+            LEFT JOIN categorias c ON p.categoria_id = c.id
+            WHERE p.usuario_id = ?
+            ORDER BY p.created_at DESC
+        ");
+        $stmt->execute([$_SESSION['user_id']]);
+        $proyectos = $stmt->fetchAll();
+    }
 } catch (PDOException $e) {
     die("Error al obtener los proyectos");
 }
@@ -37,7 +58,9 @@ try {
         <div class="nav-brand">Panel de Administración</div>
         <div class="nav-links">
             <a href="../index.html" target="_blank">Ver Sitio</a>
+            <?php if (!$isAdmin): ?>
             <a href="add.php" class="btn btn-primary">+ Nuevo Proyecto</a>
+            <?php endif; ?>
             <a href="logout.php" class="btn btn-danger">Cerrar Sesión</a>
         </div>
     </nav>
@@ -74,7 +97,9 @@ try {
                 <img src="../uploads/<?= htmlspecialchars($p['imagen_principal']) ?>" alt="<?= htmlspecialchars($p['titulo']) ?>" class="imagen-principal">
             <?php endif; ?>
             <div class="acciones">
+                <?php if (!$isAdmin): ?>
                 <a href="edit.php?id=<?= $p['id'] ?>" class="btn btn-primary">Editar</a>
+                <?php endif; ?>
                 <a href="delete.php?id=<?= $p['id'] ?>" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que quieres eliminar este proyecto?')">Eliminar</a>
             </div>
         </div>
