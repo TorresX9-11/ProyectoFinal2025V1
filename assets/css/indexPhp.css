@@ -1,15 +1,15 @@
-/* Estilos para el panel de administración (crud/index.php) */
+/* Estilo Aqua, Negro Platinum para el panel de administración (crud/index.php) */
 body {
     font-family: 'Segoe UI', Arial, sans-serif;
-    background: #f4f6fa;
-    color: #222;
+    background: linear-gradient(135deg, #0f2027 0%, #2c5364 100%);
+    color: #e5e5e5;
     margin: 0;
     padding: 0;
 }
 
 .admin-nav {
-    background: #1a2233;
-    color: #fff;
+    background: #101820;
+    color: #a7fffa;
     padding: 1rem 0.5rem;
     display: flex;
     justify-content: space-between;
@@ -18,38 +18,44 @@ body {
 .admin-nav .nav-brand {
     font-size: 1.3rem;
     font-weight: bold;
+    color: #7fffd4;
+    letter-spacing: 2px;
 }
 .admin-nav .nav-links a {
-    color: #fff;
+    color: #a7fffa;
     margin-left: 1rem;
     text-decoration: none;
     font-weight: 500;
     border-radius: 4px;
     padding: 0.3rem 0.8rem;
-    transition: background 0.2s;
+    transition: background 0.2s, color 0.2s;
 }
 .admin-nav .nav-links a.btn-primary {
-    background: #007bff;
+    background: #00bcd4;
 }
 .admin-nav .nav-links a.btn-danger {
     background: #dc3545;
 }
 .admin-nav .nav-links a:hover {
-    background: #333b4d;
+    background: #222c;
+    color: #7fffd4;
 }
 
 .container {
     max-width: 900px;
     margin: 2rem auto;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    background: #181c20;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0,255,255,0.08);
     padding: 2rem;
 }
 .proyecto-card {
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid #222c;
     padding: 1rem 0;
     margin-bottom: 1rem;
+    background: #222c;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,255,255,0.07);
 }
 .proyecto-card:last-child {
     border-bottom: none;
@@ -58,16 +64,122 @@ body {
     margin-right: 0.7rem;
     text-decoration: none;
     font-weight: 500;
+    border-radius: 4px;
+    padding: 0.2rem 0.7rem;
+    transition: background 0.2s;
 }
 .acciones .btn-danger {
     color: #fff;
     background: #dc3545;
-    border-radius: 4px;
-    padding: 0.2rem 0.7rem;
 }
 .acciones .btn-primary {
     color: #fff;
-    background: #007bff;
-    border-radius: 4px;
-    padding: 0.2rem 0.7rem;
+    background: #00bcd4;
+}
+.acciones a:hover {
+    background: #0097a7;
+    color: #fff;
+}
+img.imagen-principal {
+    display: block;
+    width: 100%;
+    max-width: 320px;
+    height: 180px;
+    object-fit: contain;
+    background: #101820;
+    border-radius: 8px;
+    margin: 1rem 0;
+    box-shadow: 0 2px 8px rgba(0,255,255,0.07);
+}
+.alert {
+    padding: 1rem;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+}
+.alert-info {
+    background: #00bcd4;
+    color: #fff;
+}
+.alert-danger {
+    background: #dc3545;
+    color: #fff;
+}
+.alert-success {
+    background: #43e97b;
+    color: #222;
+}
+
+/* Estilo Aqua, Negro Platinum para agregar y editar proyectos (formularios admin) */
+.form-group {
+    margin-bottom: 1.3rem;
+}
+label {
+    color: #a7fffa;
+    font-weight: 500;
+    display: block;
+    margin-bottom: 0.4rem;
+}
+input[type="text"],
+input[type="url"],
+input[type="date"],
+input[type="file"],
+select,
+textarea {
+    width: 100%;
+    padding: 0.7rem;
+    border: 1.5px solid #7fffd4;
+    border-radius: 6px;
+    background: #222c;
+    color: #e5e5e5;
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+    box-sizing: border-box;
+}
+input[type="file"] {
+    padding: 0.3rem;
+    background: #181c20;
+}
+input[type="checkbox"] {
+    accent-color: #00bcd4;
+    margin-right: 0.4rem;
+}
+button[type="submit"], .btn.btn-primary {
+    background: #00bcd4;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 0.7rem 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    transition: background 0.2s;
+    box-shadow: 0 2px 8px rgba(0,255,255,0.10);
+}
+button[type="submit"]:hover, .btn.btn-primary:hover {
+    background: #0097a7;
+}
+small {
+    color: #a7fffa;
+    font-size: 0.95em;
+}
+.metadata-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+}
+.metadata-list li {
+    background: #101820;
+    color: #a7fffa;
+    border-radius: 6px;
+    padding: 0.3rem 0.9rem;
+    margin-bottom: 0.3rem;
+    font-size: 1em;
+    font-weight: 500;
+    box-shadow: 0 1px 4px rgba(0,255,255,0.07);
+    border: 1px solid #222c;
+    display: inline-block;
 }

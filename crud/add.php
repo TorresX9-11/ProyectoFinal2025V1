@@ -89,7 +89,7 @@ $categorias = $conn->query('SELECT * FROM categorias ORDER BY nombre')->fetchAll
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agregar Proyecto</title>
-    <link rel="stylesheet" href="../assets/css/styleadmin.css">
+    <link rel="stylesheet" href="../assets/css/indexPhp.css">
 </head>
 <body>
     <nav class="admin-nav">
@@ -102,7 +102,7 @@ $categorias = $conn->query('SELECT * FROM categorias ORDER BY nombre')->fetchAll
         <h2>Agregar Proyecto</h2>
         <?php if ($error): ?><div class="alert alert-danger"><?= htmlspecialchars($error) ?></div><?php endif; ?>
         <?php if ($success): ?><div class="alert alert-success"><?= htmlspecialchars($success) ?></div><?php endif; ?>
-        <form method="POST" enctype="multipart/form-data">
+        <form method="POST" enctype="multipart/form-data" class="form-admin">
             <div class="form-group">
                 <label for="titulo">Título</label>
                 <input type="text" name="titulo" id="titulo" required>

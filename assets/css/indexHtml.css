@@ -27,10 +27,19 @@ header, footer {
     margin-left: 1.2rem;
     text-decoration: none;
     font-weight: 500;
-    transition: color 0.2s;
+    transition: color 0.2s, background 0.2s;
+    padding: 0.4rem 1.1rem;
+    border-radius: 6px;
+    background: #00bcd4;
+    box-shadow: 0 2px 8px rgba(0,255,255,0.10);
+    border: 1.5px solid #7fffd4;
+    display: inline-block;
 }
 .nav-links a:hover {
-    color: #7fffd4;
+    color: #fff;
+    background: #0097a7;
+    border-color: #00e6e6;
+    box-shadow: 0 4px 16px rgba(0,255,255,0.18);
 }
 
 #proyectos-list {
@@ -103,4 +112,26 @@ header, footer {
     padding: 1rem;
     margin-top: 0.5rem;
     z-index: 1000;
+}
+.proyecto-lightbox-bg {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.85);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.2s;
+}
+.proyecto-lightbox-img {
+    max-width: 90vw;
+    max-height: 85vh;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0,255,255,0.18);
+    border: 3px solid #7fffd4;
+    background: #101820;
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }

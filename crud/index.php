@@ -73,13 +73,13 @@ try {
         <?php foreach ($proyectos as $p): ?>
         <div class="proyecto-card <?= $p['destacado'] ? 'destacado' : '' ?>">
             <h3><?= htmlspecialchars($p['titulo']) ?></h3>
-            <div class="metadata">
-                <span class="categoria">Categoría: <?= htmlspecialchars($p['categoria_nombre'] ?? 'Sin categoría') ?></span>
-                <span class="estado">Estado: <?= htmlspecialchars($p['estado']) ?></span>
-                <span class="fechas">Inicio: <?= htmlspecialchars($p['fecha_inicio']) ?><?= $p['fecha_fin'] ? ' | Fin: ' . htmlspecialchars($p['fecha_fin']) : '' ?></span>
-                <span class="destacado">Destacado: <?= $p['destacado'] ? 'Sí' : 'No' ?></span>
-                <span class="visible">Visible: <?= $p['visible'] ? 'Sí' : 'No' ?></span>
-            </div>
+            <ul class="metadata-list">
+                <li><b>Categoría:</b> <?= htmlspecialchars($p['categoria_nombre'] ?? 'Sin categoría') ?></li>
+                <li><b>Estado:</b> <?= htmlspecialchars($p['estado']) ?></li>
+                <li><b>Inicio:</b> <?= htmlspecialchars($p['fecha_inicio']) ?><?= $p['fecha_fin'] ? ' | <b>Fin:</b> ' . htmlspecialchars($p['fecha_fin']) : '' ?></li>
+                <li><b>Destacado:</b> <?= $p['destacado'] ? 'Sí' : 'No' ?></li>
+                <li><b>Visible:</b> <?= $p['visible'] ? 'Sí' : 'No' ?></li>
+            </ul>
             <p class="descripcion"><b>Descripción:</b> <?= htmlspecialchars($p['descripcion']) ?></p>
             <?php if ($p['descripcion_corta']): ?>
                 <p class="descripcion-corta"><b>Descripción corta:</b> <?= htmlspecialchars($p['descripcion_corta']) ?></p>

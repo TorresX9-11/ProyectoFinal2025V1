@@ -193,6 +193,23 @@
             btn.textContent = 'Ver más';
         }
     }
+
+    // Lightbox para imágenes
+    document.addEventListener('click', function(e) {
+        if (e.target.matches('.proyecto-card img')) {
+            const src = e.target.getAttribute('src');
+            const lightboxBg = document.createElement('div');
+            lightboxBg.className = 'proyecto-lightbox-bg';
+            const img = document.createElement('img');
+            img.className = 'proyecto-lightbox-img';
+            img.src = src;
+            lightboxBg.appendChild(img);
+            document.body.appendChild(lightboxBg);
+            lightboxBg.addEventListener('click', function() {
+                document.body.removeChild(lightboxBg);
+            });
+        }
+    });
     </script>
 </body>
 </html>

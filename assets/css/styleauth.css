@@ -1,0 +1,83 @@
+/* Estilo Aqua, Negro Platinum para login y registro */
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #0f2027 0%, #2c5364 100%);
+    color: #e5e5e5;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.auth-container {
+    background: #181c20;
+    border-radius: 14px;
+    box-shadow: 0 4px 24px rgba(0,255,255,0.10);
+    padding: 2.5rem 2rem;
+    width: 100%;
+    max-width: 400px;
+}
+h2 {
+    color: #7fffd4;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+label {
+    color: #a7fffa;
+    font-weight: 500;
+}
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 0.7rem;
+    margin: 0.5rem 0 1rem 0;
+    border: 1.5px solid #7fffd4;
+    border-radius: 6px;
+    background: #222c;
+    color: #e5e5e5;
+    font-size: 1rem;
+}
+input[type="submit"], button {
+    width: 100%;
+    background: #00bcd4;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 0.7rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    transition: background 0.2s;
+}
+input[type="submit"]:hover, button:hover {
+    background: #0097a7;
+}
+.auth-links {
+    text-align: center;
+    margin-top: 1rem;
+}
+.auth-links a {
+    color: #7fffd4;
+    text-decoration: none;
+    margin: 0 0.5rem;
+    font-weight: 500;
+}
+.auth-links a:hover {
+    text-decoration: underline;
+}
+.alert {
+    padding: 1rem;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+}
+.alert-danger {
+    background: #dc3545;
+    color: #fff;
+}
+.alert-success {
+    background: #43e97b;
+    color: #222;
+}
