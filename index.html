@@ -182,11 +182,6 @@
         const desc = btn.nextElementSibling;
         if (desc.style.display === 'none' || desc.style.display === '') {
             desc.style.display = 'block';
-            desc.style.position = 'absolute';
-            desc.style.background = '#fff';
-            desc.style.border = '1px solid #ccc';
-            desc.style.padding = '10px';
-            desc.style.zIndex = 1000;
             btn.textContent = 'Ocultar';
         } else {
             desc.style.display = 'none';

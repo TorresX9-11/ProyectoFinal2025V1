@@ -9,10 +9,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim(filter_var($_POST['email'] ?? '', FILTER_SANITIZE_EMAIL));
     $password = $_POST['password'] ?? '';
     $confirm = $_POST['confirm_password'] ?? '';
+    $keyaccess = $_POST['keyaccess'] ?? '';
 
     // Validaciones
-    if (!$username || !$email || !$password || !$confirm) {
+    if (!$username || !$email || !$password || !$confirm || !$keyaccess) {
         $error = 'Todos los campos son obligatorios';
+    } elseif ($keyaccess !== 'keyacces528') {
+        $error = 'La llave de acceso es incorrecta';
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $error = 'El correo electrónico no es válido';
     } elseif (strlen($username) < 3 || strlen($username) > 50) {
@@ -69,6 +72,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="form-group">
                 <label for="confirm_password">Confirmar contraseña</label>
                 <input type="password" name="confirm_password" id="confirm_password" required>
+            </div>
+            <div class="form-group">
+                <label for="keyaccess">Llave de acceso</label>
+                <input type="password" name="keyaccess" id="keyaccess" required placeholder="Ingresa la llave de acceso">
             </div>
             <button type="submit">Registrarse</button>
         </form>
