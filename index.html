@@ -49,6 +49,7 @@
                     <div class="proyecto-card">
                         <h3>${p.titulo} ${(p.destacado == 1 || p.destacado === "1" || p.destacado === true) ? '⭐' : ''}</h3>
                         <p>${p.descripcion_corta || p.descripcion}</p>
+                        ${p.descripcion_corta && p.descripcion && p.descripcion_corta !== p.descripcion ? `<button class="ver-mas-btn" onclick="mostrarDescripcion(this)">Ver más</button><div class="descripcion-completa" style="display:none;">${p.descripcion}</div>` : ''}
                         ${p.imagen_principal ? `<img src="uploads/${p.imagen_principal}" style="max-width:200px;">` : ''}
                         ${(() => {
                             if (!p.tecnologias) return '';
@@ -74,6 +75,22 @@
                 cont.innerHTML = '<p>No hay proyectos disponibles.</p>';
             }
         });
+
+    function mostrarDescripcion(btn) {
+        const desc = btn.nextElementSibling;
+        if (desc.style.display === 'none' || desc.style.display === '') {
+            desc.style.display = 'block';
+            desc.style.position = 'absolute';
+            desc.style.background = '#fff';
+            desc.style.border = '1px solid #ccc';
+            desc.style.padding = '10px';
+            desc.style.zIndex = 1000;
+            btn.textContent = 'Ocultar';
+        } else {
+            desc.style.display = 'none';
+            btn.textContent = 'Ver más';
+        }
+    }
     </script>
 </body>
 </html>
