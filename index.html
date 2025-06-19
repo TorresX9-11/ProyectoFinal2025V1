@@ -5,11 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portafolio Emanuel Torres</title>
     <link rel="stylesheet" href="assets/css/indexHtml.css">
+    <link rel="shortcut icon" href="assets/img/imgLogoSinfondo.png" type="image/x-icon">
 </head>
 <body>
     <header>
         <nav>
-            <div class="nav-brand">Emanuel Torres</div>
+            <div class="nav-brand">
+                <img src="assets/img/imgLogoSinfondo.png" alt="Logo Emanuel Torres" class="logo-nav">
+                Mi portafolio de proyectos
+            </div>
             <div class="nav-links">
                 <a href="login.php">Iniciar Sesión</a>
                 <a href="register.php">Registrarse</a>
@@ -17,6 +21,45 @@
         </nav>
     </header>
     <main>
+        <section id="perfil">
+            <div class="perfil-container">
+                <div class="perfil-img">
+                    <img src="assets/img/imgPerfil.jpg" alt="Emanuel Torres" />
+                </div>
+                <div class="perfil-info">
+                    <h1>Hola, soy Emanuel Leandro Torres Troncoso</h1>
+                    <h2>Junior en desarrollo Web</h2>
+                    <p class="perfil-desc">Especializado en crear experiencias digitales excepcionales</p>
+                    <div class="perfil-contacto">
+                        <a href="mailto:emanuelleandrotorrestroncoso@gmail.com" class="btn-perfil">Contáctame</a>
+                        <a href="#sobre-mi" class="btn-perfil" id="btn-sobre-mi">Sobre mí</a>
+                        <a href="https://github.com/emanuel-torres" class="btn-perfil" target="_blank">My GitHub</a>
+                        <a href="#proyectos" class="btn-perfil" id="btn-mis-proyectos">Mis Proyectos</a>
+                    </div>
+                </div>
+            </div>
+            <div id="sobre-mi" class="perfil-sobremi">
+                <h3>Sobre mí</h3>
+                <p>¡Hola! Soy Emanuel, un desarrollador web junior apasionado por crear sitios y aplicaciones hermosas y funcionales enfocadas en los requerimientos del usuario.<br><br>
+                Me especializo en tecnologías modernas como HTML, JavaScript y CSS avanzado, siempre buscando aprender y mejorar mis habilidades.</p>
+                <h4>Tecnologías recientes:</h4>
+                <ul class="perfil-tecnologias">
+                    <li>JavaScript (ES6+)</li>
+                    <li>C#</li>
+                    <li>HTML & CSS</li>
+                    <li>Python</li>
+                </ul>
+            </div>
+            <div class="perfil-exp">
+                <h3>Experiencia</h3>
+                <div class="exp-item">
+                    <b>Universidad Católica</b><br>
+                    Desarrollador Junior en Front end y Back end<br>
+                    <span>2024 - 2026</span>
+                    <p>Desarrollo y mantenimiento de aplicaciones web usando HTML, CSS y JavaScript.</p>
+                </div>
+            </div>
+        </section>
         <section id="filtros">
             <label for="filtro-categoria">Filtrar por categoría:</label>
             <select id="filtro-categoria">

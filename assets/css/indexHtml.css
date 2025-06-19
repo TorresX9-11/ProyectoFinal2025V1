@@ -7,6 +7,10 @@ body {
     padding: 0;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 header, footer {
     background: #101820;
     color: #a7fffa;
@@ -163,4 +167,124 @@ h2{
     font-size: 1.08em;
     letter-spacing: 0.2px;
     box-shadow: 0 2px 12px rgba(0,255,255,0.13);
+}
+
+#perfil {
+    background: linear-gradient(135deg, #101820 60%, #2c5364 100%);
+    border-radius: 18px;
+    box-shadow: 0 4px 32px rgba(0,255,255,0.10);
+    margin: 2.5rem auto 2rem auto;
+    max-width: 950px;
+    padding: 2.5rem 2rem 2rem 2rem;
+    color: #e5e5e5;
+}
+.perfil-container {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+    flex-wrap: wrap;
+}
+.perfil-img img {
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 3px solid #7fffd4;
+    box-shadow: 0 2px 16px rgba(0,255,255,0.13);
+    background: #181c20;
+}
+.perfil-info h1 {
+    color: #7fffd4;
+    font-size: 2.1rem;
+    margin-bottom: 0.3rem;
+}
+.perfil-info h2 {
+    color: #a7fffa;
+    font-size: 1.3rem;
+    margin-top: 0;
+    margin-bottom: 0.7rem;
+}
+.perfil-desc {
+    font-size: 1.1rem;
+    margin-bottom: 1.2rem;
+    color: #fff;
+}
+.perfil-contacto {
+    display: flex;
+    gap: 1.2rem;
+    margin-bottom: 1rem;
+}
+.btn-perfil {
+    background: #00bcd4;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 0.6rem 1.3rem;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+    box-shadow: 0 2px 8px rgba(0,255,255,0.10);
+    border: 1.5px solid #7fffd4;
+}
+.btn-perfil:hover {
+    background: #0097a7;
+    color: #fff;
+}
+.perfil-sobremi, .perfil-exp {
+    margin-top: 2.2rem;
+}
+.perfil-sobremi h3, .perfil-exp h3 {
+    color: #7fffd4;
+    margin-bottom: 0.7rem;
+}
+.perfil-sobremi p {
+    color: #e5e5e5;
+    font-size: 1.08rem;
+}
+.perfil-tecnologias {
+    display: flex;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: 0;
+    margin: 0.7rem 0 0 0;
+}
+.perfil-tecnologias li {
+    background: #222c;
+    color: #7fffd4;
+    border-radius: 6px;
+    padding: 0.4rem 1.1rem;
+    font-size: 1em;
+    font-weight: 500;
+    box-shadow: 0 1px 4px rgba(0,255,255,0.07);
+    border: 1px solid #222c;
+    display: inline-block;
+}
+.exp-item {
+    background: #181c20;
+    border-radius: 8px;
+    padding: 1.2rem 1rem;
+    margin-bottom: 1.2rem;
+    box-shadow: 0 2px 8px rgba(0,255,255,0.07);
+    border-left: 4px solid #7fffd4;
+}
+.exp-item b {
+    color: #a7fffa;
+    font-size: 1.1em;
+}
+.exp-item span {
+    color: #7fffd4;
+    font-size: 0.98em;
+    margin-left: 0.5rem;
+}
+.logo-nav {
+    height: 38px;
+    width: 38px;
+    object-fit: contain;
+    vertical-align: middle;
+    margin-right: 0.7rem;
+    border-radius: 8px;
+    background: #fff2;
+    box-shadow: 0 1px 4px rgba(0,255,255,0.07);
 }
