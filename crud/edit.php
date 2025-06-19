@@ -165,6 +165,7 @@ $categorias = $conn->query('SELECT * FROM categorias ORDER BY nombre')->fetchAll
                     <img src="../uploads/<?= htmlspecialchars($proyecto['imagen_principal']) ?>" alt="Imagen actual" style="max-width:150px;display:block;margin-bottom:10px;">
                 <?php endif; ?>
                 <input type="file" name="imagen_principal" id="imagen_principal" accept="image/*">
+                <small>Tamaño máximo: 2MB</small>
             </div>
             <button type="submit" class="btn btn-primary">Actualizar</button>
         </form>
@@ -179,6 +180,15 @@ form.addEventListener('submit', function(e) {
         .map(t => t.trim())
         .filter(t => t.length > 0);
     hidden.value = JSON.stringify(arr);
+});
+
+// Validación de tamaño de imagen (máx 2MB)
+document.getElementById('imagen_principal').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file && file.size > 2 * 1024 * 1024) {
+        alert('La imagen supera el tamaño máximo permitido (2MB). Por favor, selecciona otra imagen.');
+        e.target.value = '';
+    }
 });
 </script>
     </div>
