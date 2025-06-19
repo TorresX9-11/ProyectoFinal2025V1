@@ -9,14 +9,16 @@ if (!isset($_SESSION['user_id'])) {
 
 require_once '../api/config.php';
 
-// Obtener todos los proyectos
+// Obtener solo los proyectos del usuario logueado
 try {
-    $stmt = $conn->query("
+    $stmt = $conn->prepare("
         SELECT p.*, c.nombre as categoria_nombre 
         FROM proyectos p 
         LEFT JOIN categorias c ON p.categoria_id = c.id 
+        WHERE p.usuario_id = ?
         ORDER BY p.created_at DESC
     ");
+    $stmt->execute([$_SESSION['user_id']]);
     $proyectos = $stmt->fetchAll();
 } catch (PDOException $e) {
     die("Error al obtener los proyectos");
@@ -42,7 +44,9 @@ try {
 
     <div class="container">
         <h2>Gestión de Proyectos</h2>
-        
+        <?php if (empty($proyectos)): ?>
+            <div class="alert alert-info">No tienes proyectos aún. ¡Agrega tu primer proyecto!</div>
+        <?php endif; ?>
         <?php foreach ($proyectos as $p): ?>
         <div class="proyecto-card <?= $p['destacado'] ? 'destacado' : '' ?>">
             <h3><?= htmlspecialchars($p['titulo']) ?></h3>

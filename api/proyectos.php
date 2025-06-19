@@ -37,7 +37,7 @@ if ($method === 'GET') {
                 echo json_encode(["error" => "Proyecto no encontrado"]);
             }
         } else {
-            $stmt = $conn->query("SELECT id, titulo, descripcion, descripcion_corta, imagen_principal, visible, destacado, tecnologias, url_demo, url_repositorio, fecha_inicio, fecha_fin, estado, categoria_id FROM proyectos WHERE visible = 1 ORDER BY fecha_inicio DESC");
+            $stmt = $conn->query("SELECT p.id, p.titulo, p.descripcion, p.descripcion_corta, p.imagen_principal, p.visible, p.destacado, p.tecnologias, p.url_demo, p.url_repositorio, p.fecha_inicio, p.fecha_fin, p.estado, p.categoria_id, u.username as autor FROM proyectos p JOIN usuarios u ON p.usuario_id = u.id WHERE p.visible = 1 ORDER BY p.fecha_inicio DESC");
             $proyectos = $stmt->fetchAll();
             echo json_encode($proyectos);
         }

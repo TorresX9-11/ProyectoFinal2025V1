@@ -67,6 +67,7 @@
                         ${p.url_demo ? `<p><a href="${p.url_demo}" target="_blank">Ver Demo</a></p>` : ''}
                         ${p.url_repositorio ? `<p><a href="${p.url_repositorio}" target="_blank">Repositorio</a></p>` : ''}
                         ${(p.fecha_inicio || p.fecha_fin) ? `<p><b>Fechas:</b> ${p.fecha_inicio || ''}${p.fecha_fin ? ' - ' + p.fecha_fin : ''}</p>` : ''}
+                        <p><b>Autor:</b> ${p.autor ? p.autor : 'Desconocido'}</p>
                     </div>
                 `).join('');
             } else {
@@ -77,4 +78,3 @@
 </body>
 </html>
 <!-- falta mejorar el ingreso de datos en tecnologias, hacerlo mas facil para el usuario ya que en formato json no es muy amigable -->
-    
