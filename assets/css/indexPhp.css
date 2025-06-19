@@ -1,0 +1,73 @@
+/* Estilos para el panel de administración (crud/index.php) */
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f4f6fa;
+    color: #222;
+    margin: 0;
+    padding: 0;
+}
+
+.admin-nav {
+    background: #1a2233;
+    color: #fff;
+    padding: 1rem 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.admin-nav .nav-brand {
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+.admin-nav .nav-links a {
+    color: #fff;
+    margin-left: 1rem;
+    text-decoration: none;
+    font-weight: 500;
+    border-radius: 4px;
+    padding: 0.3rem 0.8rem;
+    transition: background 0.2s;
+}
+.admin-nav .nav-links a.btn-primary {
+    background: #007bff;
+}
+.admin-nav .nav-links a.btn-danger {
+    background: #dc3545;
+}
+.admin-nav .nav-links a:hover {
+    background: #333b4d;
+}
+
+.container {
+    max-width: 900px;
+    margin: 2rem auto;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    padding: 2rem;
+}
+.proyecto-card {
+    border-bottom: 1px solid #e0e0e0;
+    padding: 1rem 0;
+    margin-bottom: 1rem;
+}
+.proyecto-card:last-child {
+    border-bottom: none;
+}
+.acciones a {
+    margin-right: 0.7rem;
+    text-decoration: none;
+    font-weight: 500;
+}
+.acciones .btn-danger {
+    color: #fff;
+    background: #dc3545;
+    border-radius: 4px;
+    padding: 0.2rem 0.7rem;
+}
+.acciones .btn-primary {
+    color: #fff;
+    background: #007bff;
+    border-radius: 4px;
+    padding: 0.2rem 0.7rem;
+}

@@ -1,0 +1,106 @@
+/* Estilo Aqua, Negro Platinum para la vista pública (index.html) */
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #0f2027 0%, #2c5364 100%);
+    color: #e5e5e5;
+    margin: 0;
+    padding: 0;
+}
+
+header, footer {
+    background: #101820;
+    color: #a7fffa;
+    padding: 1rem 0;
+    text-align: center;
+    letter-spacing: 1px;
+}
+
+.nav-brand {
+    font-weight: bold;
+    font-size: 1.7rem;
+    color: #7fffd4;
+    letter-spacing: 2px;
+}
+
+.nav-links a {
+    color: #a7fffa;
+    margin-left: 1.2rem;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+.nav-links a:hover {
+    color: #7fffd4;
+}
+
+#proyectos-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.proyecto-card {
+    background: #181c20;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0,255,255,0.08);
+    padding: 1.5rem;
+    width: 340px;
+    position: relative;
+    transition: box-shadow 0.2s, transform 0.2s;
+    border: 1.5px solid #7fffd4;
+    overflow: hidden;
+}
+.proyecto-card:hover {
+    box-shadow: 0 8px 32px rgba(0,255,255,0.18);
+    transform: translateY(-4px) scale(1.02);
+}
+.ver-mas-btn {
+    background: #00bcd4;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 0.3rem 0.8rem;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    transition: background 0.2s;
+}
+.ver-mas-btn:hover {
+    background: #0097a7;
+}
+.proyecto-card img {
+    display: block;
+    width: 100%;
+    height: 180px;
+    object-fit: contain;
+    background: #222c;
+    border-radius: 8px;
+    margin: 1rem 0;
+    box-shadow: 0 2px 8px rgba(0,255,255,0.07);
+}
+.proyecto-card h3 {
+    color: #7fffd4;
+    margin-top: 0;
+    margin-bottom: 0.7rem;
+    font-size: 1.3rem;
+}
+.proyecto-card p, .proyecto-card a {
+    color: #e5e5e5;
+}
+.proyecto-card a {
+    text-decoration: underline;
+    color: #00e6e6;
+}
+.proyecto-card a:hover {
+    color: #7fffd4;
+}
+.descripcion-completa {
+    background: #101820;
+    color: #e5e5e5;
+    border: 1px solid #7fffd4;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-top: 0.5rem;
+    z-index: 1000;
+}
