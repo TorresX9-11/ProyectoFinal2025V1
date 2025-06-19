@@ -47,10 +47,25 @@ try {
         <div class="proyecto-card <?= $p['destacado'] ? 'destacado' : '' ?>">
             <h3><?= htmlspecialchars($p['titulo']) ?></h3>
             <div class="metadata">
-                <span class="categoria"><?= htmlspecialchars($p['categoria_nombre'] ?? 'Sin categoría') ?></span>
-                <span class="estado"><?= htmlspecialchars($p['estado']) ?></span>
+                <span class="categoria">Categoría: <?= htmlspecialchars($p['categoria_nombre'] ?? 'Sin categoría') ?></span>
+                <span class="estado">Estado: <?= htmlspecialchars($p['estado']) ?></span>
+                <span class="fechas">Inicio: <?= htmlspecialchars($p['fecha_inicio']) ?><?= $p['fecha_fin'] ? ' | Fin: ' . htmlspecialchars($p['fecha_fin']) : '' ?></span>
+                <span class="destacado">Destacado: <?= $p['destacado'] ? 'Sí' : 'No' ?></span>
+                <span class="visible">Visible: <?= $p['visible'] ? 'Sí' : 'No' ?></span>
             </div>
-            <p class="descripcion"><?= htmlspecialchars($p['descripcion_corta'] ?? $p['descripcion']) ?></p>
+            <p class="descripcion"><b>Descripción:</b> <?= htmlspecialchars($p['descripcion']) ?></p>
+            <?php if ($p['descripcion_corta']): ?>
+                <p class="descripcion-corta"><b>Descripción corta:</b> <?= htmlspecialchars($p['descripcion_corta']) ?></p>
+            <?php endif; ?>
+            <?php if ($p['tecnologias']): ?>
+                <p class="tecnologias"><b>Tecnologías:</b> <?= htmlspecialchars($p['tecnologias']) ?></p>
+            <?php endif; ?>
+            <?php if ($p['url_demo']): ?>
+                <p class="url-demo"><a href="<?= htmlspecialchars($p['url_demo']) ?>" target="_blank">Ver Demo</a></p>
+            <?php endif; ?>
+            <?php if ($p['url_repositorio']): ?>
+                <p class="url-repo"><a href="<?= htmlspecialchars($p['url_repositorio']) ?>" target="_blank">Repositorio</a></p>
+            <?php endif; ?>
             <?php if ($p['imagen_principal']): ?>
                 <img src="../uploads/<?= htmlspecialchars($p['imagen_principal']) ?>" alt="<?= htmlspecialchars($p['titulo']) ?>" class="imagen-principal">
             <?php endif; ?>

@@ -34,6 +34,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt = $conn->prepare('INSERT INTO usuarios (username, password_hash, email) VALUES (?, ?, ?)');
             $stmt->execute([$username, $hash, $email]);
             $success = '¡Registro exitoso! Ahora puedes iniciar sesión.';
+            echo '<script>alert("¡Registro exitoso! Ahora puedes iniciar sesión.");window.location.href="login.php";</script>';
+            exit;
         }
     }
 }

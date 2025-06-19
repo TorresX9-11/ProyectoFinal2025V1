@@ -37,7 +37,7 @@ if ($method === 'GET') {
                 echo json_encode(["error" => "Proyecto no encontrado"]);
             }
         } else {
-            $stmt = $conn->query("SELECT id, titulo, descripcion, descripcion_corta, imagen_principal FROM proyectos WHERE visible = 1 ORDER BY fecha_inicio DESC");
+            $stmt = $conn->query("SELECT id, titulo, descripcion, descripcion_corta, imagen_principal, visible, destacado, tecnologias, url_demo, url_repositorio, fecha_inicio, fecha_fin, estado, categoria_id FROM proyectos WHERE visible = 1 ORDER BY fecha_inicio DESC");
             $proyectos = $stmt->fetchAll();
             echo json_encode($proyectos);
         }

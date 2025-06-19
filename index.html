@@ -31,12 +31,42 @@
         .then(res => res.json())
         .then(data => {
             const cont = document.getElementById('proyectos-list');
+            console.log('Proyectos recibidos:', data);
             if(Array.isArray(data)) {
-                cont.innerHTML = data.map(p => `
+                data.forEach(p => console.log(`Proyecto: ${p.titulo}, visible:`, p.visible));
+                // Filtrar solo proyectos visibles de forma robusta
+                const visibles = data.filter(p => {
+                    return p.visible == 1 || p.visible === "1" || p.visible === true;
+                });
+                // Ordenar primero los destacados
+                visibles.sort((a, b) => {
+                    const da = (a.destacado == 1 || a.destacado === "1" || a.destacado === true) ? 1 : 0;
+                    const db = (b.destacado == 1 || b.destacado === "1" || b.destacado === true) ? 1 : 0;
+                    return db - da;
+                });
+                console.log('Proyectos visibles:', visibles);
+                cont.innerHTML = visibles.map(p => `
                     <div class="proyecto-card">
-                        <h3>${p.titulo}</h3>
+                        <h3>${p.titulo} ${(p.destacado == 1 || p.destacado === "1" || p.destacado === true) ? '⭐' : ''}</h3>
                         <p>${p.descripcion_corta || p.descripcion}</p>
                         ${p.imagen_principal ? `<img src="uploads/${p.imagen_principal}" style="max-width:200px;">` : ''}
+                        ${(() => {
+                            if (!p.tecnologias) return '';
+                            try {
+                                const tech = JSON.parse(p.tecnologias);
+                                if (Array.isArray(tech)) {
+                                    return `<p><b>Tecnologías:</b> ${tech.join(', ')}</p>`;
+                                } else if (typeof tech === 'string') {
+                                    return `<p><b>Tecnologías:</b> ${tech}</p>`;
+                                }
+                                return '';
+                            } catch (e) {
+                                return `<p><b>Tecnologías:</b> ${p.tecnologias}</p>`;
+                            }
+                        })()}
+                        ${p.url_demo ? `<p><a href="${p.url_demo}" target="_blank">Ver Demo</a></p>` : ''}
+                        ${p.url_repositorio ? `<p><a href="${p.url_repositorio}" target="_blank">Repositorio</a></p>` : ''}
+                        ${(p.fecha_inicio || p.fecha_fin) ? `<p><b>Fechas:</b> ${p.fecha_inicio || ''}${p.fecha_fin ? ' - ' + p.fecha_fin : ''}</p>` : ''}
                     </div>
                 `).join('');
             } else {
@@ -46,3 +76,5 @@
     </script>
 </body>
 </html>
+<!-- falta mejorar el ingreso de datos en tecnologias, hacerlo mas facil para el usuario ya que en formato json no es muy amigable -->
+    
