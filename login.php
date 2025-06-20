@@ -27,6 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar Sesión</title>
     <link rel="stylesheet" href="assets/css/styleauth.css">
+    <link rel="shortcut icon" href="assets/img/imgLogoSinfondo.png" type="image/x-icon">
 </head>
 <body>
     <div class="container">

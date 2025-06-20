@@ -52,6 +52,7 @@ try {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel de Administración - Proyectos</title>
     <link rel="stylesheet" href="../assets/css/indexPhp.css">
+    <link rel="shortcut icon" href="assets/img/imgLogoSinfondo.png" type="image/x-icon">
 </head>
 <body>
     <nav class="admin-nav">

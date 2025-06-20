@@ -82,7 +82,21 @@ function cargarProyectos() {
             } else {
                 cont.innerHTML = '<p>No hay proyectos disponibles.</p>';
             }
+            mostrarMensajeProyectosVacio(); // Llama a la función para mostrar/ocultar mensaje
         });
+}
+
+// Mostrar mensaje si no hay proyectos
+function mostrarMensajeProyectosVacio() {
+    const lista = document.getElementById('proyectos-list');
+    const vacio = document.getElementById('proyectos-vacio');
+    if (lista && vacio) {
+        if (!lista.hasChildNodes() || lista.children.length === 0) {
+            vacio.style.display = 'block';
+        } else {
+            vacio.style.display = 'none';
+        }
+    }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -104,7 +118,6 @@ function mostrarDescripcion(btn) {
 }
 
 // Lightbox para imágenes
-// ...existing code...
 document.addEventListener('click', function(e) {
     if (e.target.matches('.proyecto-card img')) {
         const src = e.target.getAttribute('src');
@@ -134,3 +147,16 @@ if (menuToggle && navLinks) {
         });
     });
 }
+
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (href.startsWith('#')) {
+            const target = document.querySelector(href);
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+    });
+});
