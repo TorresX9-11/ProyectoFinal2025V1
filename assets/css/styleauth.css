@@ -17,8 +17,13 @@ body {
     padding: 2.5rem 2rem;
     width: 100%;
     max-width: 400px;
+    margin: 3rem auto 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
-h2 {
+h2, h1 {
     color: #7fffd4;
     text-align: center;
     margin-bottom: 1.5rem;
@@ -26,6 +31,9 @@ h2 {
 label {
     color: #a7fffa;
     font-weight: 500;
+    display: block;
+    margin-bottom: 0.4rem;
+    text-align: center;
 }
 input[type="text"],
 input[type="email"],
@@ -38,19 +46,24 @@ input[type="password"] {
     background: #222c;
     color: #e5e5e5;
     font-size: 1rem;
+    text-align: center;
 }
 input[type="submit"], button {
-    width: 100%;
+    width: auto;
+    min-width: 160px;
+    margin: 1.2rem auto 0 auto;
+    display: block;
     background: #00bcd4;
     color: #fff;
     border: none;
     border-radius: 6px;
-    padding: 0.7rem;
+    padding: 0.7rem 2.2rem;
     font-size: 1.1rem;
     font-weight: 600;
     cursor: pointer;
-    margin-top: 0.5rem;
     transition: background 0.2s;
+    box-shadow: 0 2px 8px rgba(0,255,255,0.10);
+    text-align: center;
 }
 input[type="submit"]:hover, button:hover {
     background: #0097a7;
@@ -72,6 +85,7 @@ input[type="submit"]:hover, button:hover {
     padding: 1rem;
     border-radius: 6px;
     margin-bottom: 1rem;
+    text-align: center;
 }
 .alert-danger {
     background: #dc3545;
