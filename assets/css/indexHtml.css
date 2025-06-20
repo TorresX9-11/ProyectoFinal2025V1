@@ -328,3 +328,158 @@ h2{
     from { opacity: 0; }
     to { opacity: 1; }
 }
+
+/* HAMBURGER MENU */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 38px;
+    height: 38px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: 1rem;
+    z-index: 1002;
+}
+.menu-toggle span {
+    display: block;
+    width: 26px;
+    height: 3px;
+    margin: 4px 0;
+    background: #7fffd4;
+    border-radius: 2px;
+    transition: 0.3s;
+}
+@media (max-width: 700px) {
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: auto;
+        width: 60vw;
+        max-width: 220px;
+        height: 100vh;
+        background: #181c20;
+        box-shadow: -2px 0 16px rgba(0,255,255,0.10);
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: flex-start;
+        padding: 4.5rem 1.2rem 1.2rem 1.2rem;
+        gap: 1.2rem;
+        transition: right 0.3s;
+        z-index: 1001;
+    }
+    .nav-links {
+        right: -100vw;
+    }
+    .nav-links.open {
+        right: 0;
+    }
+    .menu-toggle {
+        display: flex;
+        margin-left: auto;
+    }
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 900px) {
+    #perfil {
+        padding: 1.5rem 0.7rem;
+    }
+    .perfil-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.2rem;
+    }
+    .perfil-img img {
+        width: 120px;
+        height: 120px;
+    }
+    .perfil-info h1 {
+        font-size: 1.4rem;
+    }
+}
+@media (max-width: 700px) {
+    #perfil {
+        max-width: 98vw;
+        padding: 1.2rem 0.2rem;
+    }
+    .perfil-img img {
+        width: 90px;
+        height: 90px;
+    }
+    .perfil-info h1 {
+        font-size: 1.1rem;
+    }
+    .perfil-info h2 {
+        font-size: 1rem;
+    }
+    .perfil-desc {
+        font-size: 0.98rem;
+    }
+    .perfil-tecnologias li {
+        font-size: 0.95em;
+        padding: 0.3rem 0.7rem;
+    }
+    .exp-item {
+        padding: 0.7rem 0.5rem;
+    }
+    .btn-perfil {
+        padding: 0.4rem 0.7rem;
+        font-size: 0.95rem;
+    }
+    #proyectos-list {
+        gap: 1rem;
+    }
+    .proyecto-card {
+        width: 98vw;
+        min-width: 0;
+        max-width: 99vw;
+        padding: 1rem 0.5rem;
+    }
+    .proyecto-card img {
+        height: 120px;
+    }
+}
+@media (max-width: 480px) {
+    .nav-brand {
+        font-size: 1.1rem;
+    }
+    .logo-nav {
+        height: 28px;
+        width: 28px;
+        margin-right: 0.3rem;
+    }
+    .perfil-img img {
+        width: 60px;
+        height: 60px;
+    }
+    .perfil-info h1 {
+        font-size: 0.98rem;
+    }
+    .perfil-info h2 {
+        font-size: 0.85rem;
+    }
+    .perfil-desc {
+        font-size: 0.9rem;
+    }
+    .btn-perfil {
+        padding: 0.3rem 0.5rem;
+        font-size: 0.85rem;
+    }
+    .proyecto-card {
+        width: 99vw;
+        padding: 0.7rem 0.2rem;
+    }
+    .proyecto-card img {
+        height: 80px;
+    }
+    #filtros {
+        flex-direction: column;
+        gap: 0.7rem;
+        padding: 0.7rem 0.2rem;
+    }
+}

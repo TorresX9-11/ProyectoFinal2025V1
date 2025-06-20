@@ -95,3 +95,34 @@ input[type="submit"]:hover, button:hover {
     background: #43e97b;
     color: #222;
 }
+@media (max-width: 700px) {
+    .auth-container {
+        padding: 1.2rem 0.5rem;
+        max-width: 99vw;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+        font-size: 0.98rem;
+        padding: 0.5rem;
+    }
+    input[type="submit"], button {
+        font-size: 1rem;
+        padding: 0.5rem 1.2rem;
+    }
+}
+@media (max-width: 480px) {
+    .auth-container {
+        padding: 0.7rem 0.1rem;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+        font-size: 0.92rem;
+        padding: 0.3rem;
+    }
+    input[type="submit"], button {
+        font-size: 0.92rem;
+        padding: 0.3rem 0.7rem;
+    }
+}

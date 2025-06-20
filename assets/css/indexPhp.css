@@ -192,3 +192,31 @@ small {
     border: 1px solid #222c;
     display: inline-block;
 }
+
+@media (max-width: 700px) {
+    .container {
+        padding: 1rem 0.3rem;
+        max-width: 99vw;
+    }
+    .proyecto-card {
+        width: 98vw;
+        min-width: 0;
+        max-width: 99vw;
+        padding: 1rem 0.5rem;
+    }
+    img.imagen-principal {
+        height: 120px;
+    }
+}
+@media (max-width: 480px) {
+    .container {
+        padding: 0.5rem 0.1rem;
+    }
+    .proyecto-card {
+        width: 99vw;
+        padding: 0.7rem 0.2rem;
+    }
+    img.imagen-principal {
+        height: 80px;
+    }
+}
