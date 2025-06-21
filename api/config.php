@@ -15,8 +15,8 @@ $db   = 'emanuel_torres_db2'; // Nombre de la base de datos
 // $pass = ''; // Contraseña de la base de datos (para desarrollo local)
 
 // Usuario y contraseña para producción (comentar las credenciales locales y descomentar estas líneas)
-// $user = 'emanuel_torres';
-// $pass = 'emanuel_torres2025';
+$user = 'emanuel_torres';
+$pass = 'emanuel_torres2025';
 
 $charset = 'utf8mb4'; // Codificación de caracteres
 
