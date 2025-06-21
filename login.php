@@ -1,21 +1,30 @@
 <?php
+// Inicia la sesión para acceder a variables de sesión
 session_start();
+// Incluye la configuración y conexión a la base de datos
 require_once __DIR__ . '/api/config.php';
 
+// Inicializa variable para mensajes de error
 $error = '';
+// Si el formulario fue enviado (método POST)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Obtiene y limpia los datos del formulario
     $username = trim($_POST['username'] ?? '');
     $password = $_POST['password'] ?? '';
     
+    // Prepara y ejecuta la consulta para buscar el usuario
     $stmt = $conn->prepare('SELECT id, username, password_hash FROM usuarios WHERE username = ?');
     $stmt->execute([$username]);
     $user = $stmt->fetch();
+    // Verifica si el usuario existe y la contraseña es correcta
     if ($user && password_verify($password, $user['password_hash'])) {
+        // Guarda datos en la sesión y redirige al panel
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['username'] = $user['username'];
         header('Location: crud/index.php');
         exit;
     } else {
+        // Si no coincide, muestra mensaje de error
         $error = 'Usuario o contraseña incorrectos';
     }
 }

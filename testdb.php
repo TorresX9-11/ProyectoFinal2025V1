@@ -1,14 +1,9 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-$host = 'localhost';
-$db = 'emanuel_torres_db2';
-$user = 'emanuel_torres'; // Cambia si tu hosting te dio otro usuario
-$pass = 'emanuel_torres2025'; // Cambia si tu hosting te dio otra contraseña
-try {
-    $conn = new PDO("mysql:host=$host;dbname=$db;charset=utf8mb4", $user, $pass);
-    echo "Conexión exitosa";
-} catch (PDOException $e) {
-    echo "Error: " . $e->getMessage();
-}
+// Este archivo sirve para probar la conexión a la base de datos
+// Incluye la configuración y conexión a la base de datos
+require_once 'api/config.php';
+// Realiza una consulta simple para verificar la conexión
+$stmt = $conn->query('SELECT 1');
+// Muestra mensaje si la conexión y consulta son exitosas
+echo 'Conexión exitosa';
 ?>

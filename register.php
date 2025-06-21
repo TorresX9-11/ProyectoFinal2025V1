@@ -1,17 +1,22 @@
 <?php
+// Inicia la sesión para acceder a variables de sesión
 session_start();
+// Incluye la configuración y conexión a la base de datos
 require_once __DIR__ . '/api/config.php';
 
+// Inicializa variables para mensajes de error y éxito
 $error = '';
 $success = '';
+// Si el formulario fue enviado (método POST)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Obtiene y limpia los datos del formulario
     $username = trim(filter_var($_POST['username'] ?? '', FILTER_SANITIZE_STRING));
     $email = trim(filter_var($_POST['email'] ?? '', FILTER_SANITIZE_EMAIL));
     $password = $_POST['password'] ?? '';
     $confirm = $_POST['confirm_password'] ?? '';
     $keyaccess = $_POST['keyaccess'] ?? '';
 
-    // Validaciones
+    // Validaciones de campos obligatorios y formato
     if (!$username || !$email || !$password || !$confirm || !$keyaccess) {
         $error = 'Todos los campos son obligatorios';
     } elseif ($keyaccess !== 'keyacces528') {
@@ -27,18 +32,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif ($password !== $confirm) {
         $error = 'Las contraseñas no coinciden';
     } else {
-        // Validar unicidad
+        // Verifica que el usuario o email no existan ya en la base de datos
         $stmt = $conn->prepare('SELECT id FROM usuarios WHERE username = ? OR email = ?');
         $stmt->execute([$username, $email]);
         if ($stmt->fetch()) {
             $error = 'El usuario o email ya existe';
         } else {
+            // Si todo es válido, crea el usuario
             $hash = password_hash($password, PASSWORD_DEFAULT);
             $stmt = $conn->prepare('INSERT INTO usuarios (username, password_hash, email) VALUES (?, ?, ?)');
             $stmt->execute([$username, $hash, $email]);
             $success = '¡Registro exitoso! Ahora puedes iniciar sesión.';
+            // Muestra alerta y redirige a login
             echo '<script>alert("¡Registro exitoso! Ahora puedes iniciar sesión.");window.location.href="login.php";</script>';
-            exit;
         }
     }
 }

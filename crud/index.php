@@ -1,15 +1,17 @@
 <?php
+// Inicia la sesión para acceder a variables de sesión
 session_start();
 
-// Verificar autenticación
+// Verifica si el usuario está autenticado
 if (!isset($_SESSION['user_id'])) {
     header('Location: ../login.php');
     exit;
 }
 
+// Incluye la configuración y conexión a la base de datos
 require_once '../api/config.php';
 
-// Obtener datos del usuario logueado
+// Intenta obtener los datos del usuario logueado
 try {
     $stmtUser = $conn->prepare("SELECT is_admin FROM usuarios WHERE id = ?");
     $stmtUser->execute([$_SESSION['user_id']]);
@@ -19,7 +21,7 @@ try {
     die("Error al obtener datos del usuario");
 }
 
-// Obtener proyectos: todos si admin, solo propios si no
+// Intenta obtener los proyectos: todos si es admin, solo propios si no
 try {
     if ($isAdmin) {
         $stmt = $conn->query("

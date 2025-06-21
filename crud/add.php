@@ -1,8 +1,10 @@
 <?php
+// Inicia la sesión para acceder a variables de sesión
 session_start();
+// Incluye la configuración y conexión a la base de datos
 require_once '../api/config.php';
 
-// Bloquear acceso a admin
+// Bloquea el acceso a la creación de proyectos si el usuario es administrador
 $stmtUser = $conn->prepare("SELECT is_admin FROM usuarios WHERE id = ?");
 $stmtUser->execute([$_SESSION['user_id']]);
 $user = $stmtUser->fetch();
@@ -10,16 +12,19 @@ if ($user && $user['is_admin'] == 1) {
     die('Acceso denegado: el usuario administrador no puede crear proyectos.');
 }
 
-// Verificar autenticación
+// Verifica si el usuario está autenticado
 if (!isset($_SESSION['user_id'])) {
     header('Location: ../login.php');
     exit;
 }
 
+// Inicializa variables para mensajes de error y éxito
 $error = '';
 $success = '';
 
+// Si el formulario fue enviado (método POST)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Obtiene y limpia los datos del formulario
     $titulo = trim($_POST['titulo'] ?? '');
     $descripcion = trim($_POST['descripcion'] ?? '');
     $descripcion_corta = trim($_POST['descripcion_corta'] ?? '');
@@ -37,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $imagen_principal = null;
     $usuario_id = $_SESSION['user_id'];
 
-    // Manejo de imagen
+    // Si se subió una imagen, la procesa y guarda
     if (isset($_FILES['imagen_principal']) && $_FILES['imagen_principal']['error'] === UPLOAD_ERR_OK) {
         $nombreArchivo = uniqid() . '_' . basename($_FILES['imagen_principal']['name']);
         $rutaDestino = '../uploads/' . $nombreArchivo;
@@ -46,13 +51,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
+    // Valida que los campos obligatorios estén completos
     if ($titulo && $descripcion && $categoria_id && $tecnologias) {
-        // Validar que el campo tecnologias sea un JSON válido
+        // Valida que el campo tecnologías sea un JSON válido
         json_decode($tecnologias);
         if (json_last_error() !== JSON_ERROR_NONE) {
             $error = 'El campo Tecnologías debe ser un JSON válido, por ejemplo: ["PHP","MySQL"]';
         } else {
             try {
+                // Prepara y ejecuta la inserción del proyecto en la base de datos
                 $stmt = $conn->prepare("INSERT INTO proyectos (titulo, descripcion, descripcion_corta, tecnologias, url_demo, url_repositorio, fecha_inicio, fecha_fin, estado, categoria_id, usuario_id, destacado, visible, imagen_principal) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
                 $stmt->execute([
                     $titulo,
@@ -80,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Obtener categorías para el select
+// Obtiene todas las categorías para el select del formulario
 $categorias = $conn->query('SELECT * FROM categorias ORDER BY nombre')->fetchAll();
 ?>
 <!DOCTYPE html>
@@ -168,7 +175,7 @@ $categorias = $conn->query('SELECT * FROM categorias ORDER BY nombre')->fetchAll
         </form>
     </div>
     <script>
-    // Al enviar el formulario, transforma las tecnologías a JSON
+    // Al enviar el formulario, transforma las tecnologías a JSON para el backend
     const form = document.querySelector('form');
     form.addEventListener('submit', function(e) {
         const input = document.getElementById('tecnologias_input');
