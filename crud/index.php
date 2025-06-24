@@ -58,8 +58,16 @@ try {
 </head>
 <body>
     <nav class="admin-nav">
-        <div class="nav-brand">Panel de Administración</div>
-        <div class="nav-links">
+        <div class="nav-brand">
+            <img src="../assets/img/imgLogoSinfondo.png" alt="Logo Emanuel Torres" class="logo-nav" style="height:32px;vertical-align:middle;margin-right:8px;">
+            Panel de Administración
+        </div>
+        <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div class="nav-links" id="nav-links">
             <a href="../index.html" target="_blank">Ver Sitio</a>
             <?php if (!$isAdmin): ?>
             <a href="add.php" class="btn btn-primary">+ Nuevo Proyecto</a>
@@ -108,5 +116,6 @@ try {
         </div>
         <?php endforeach; ?>
     </div>
+    <script src="../assets/js/admin.js"></script>
 </body>
 </html>
