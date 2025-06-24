@@ -1,17 +1,16 @@
 # Portafolio Web Profesional PHP/MySQL
 
 ## Descripción del proyecto
-Este proyecto es un portafolio web profesional desarrollado en PHP y MySQL, con un frontend público elegante y un panel de administración seguro. Permite mostrar proyectos, gestionar categorías y usuarios, y cuenta con autenticación, CRUD completo y una API REST. El diseño es responsivo, formal y moderno, pensado para destacar la experiencia y habilidades del desarrollador.
+Este proyecto es un portafolio web profesional desarrollado en PHP y MySQL, con un frontend público elegante y un panel de administración seguro. Permite mostrar proyectos, gestionar categorías y usuarios, y cuenta con autenticación, CRUD completo y una API REST. El diseño es responsivo, formal y moderno.
 
 ## Tecnologías utilizadas
-- PHP 8+
+- PHP 
 - MySQL
-- HTML5, CSS3 
+- HTML5, CSS 
 - JavaScript (ES6+)
 - AJAX/Fetch API
 - JSON
 - Git
-- Servidor Apache/Linux
 
 ## Detalle del uso de IA
 El desarrollo de este portafolio contó con el apoyo de herramientas de Inteligencia Artificial:
